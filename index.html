@@ -18,7 +18,6 @@
       width: 100vw;
       height: auto;
     }
-
     @media (min-width: 768px) {
       .logo-container {
         max-width: 600px;
@@ -27,10 +26,36 @@
         width: 100%;
       }
     }
-
     .content {
       padding: 50px;
       text-align: center;
+    }
+    .notice {
+      font-size: 9pt;
+      line-height: 1.5;
+      text-align: center;
+      margin: 20px 0 40px;
+    }
+    .button {
+      font-size: 20px;
+      padding: 10px 20px;
+      margin: 10px;
+    }
+    .big-button {
+      font-size: 22px;
+      padding: 12px 24px;
+      margin-top: 20px;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .naver-button {
+      background-color: #03C75A;
+    }
+    .ddocdoc-button {
+      background-color: #FFD400;
+      color: black;
     }
   </style>
 </head>
@@ -38,25 +63,25 @@
   <div class="logo-container">
     <img src="image/logo.jpg" alt="로고">
   </div>
-    <!-- 추가된 안내문 -->
-  <div class="logo-container">
-  <img src="image/logo.jpg" alt="로고">
-</div>
 
-<div class="notice"; style="font-size:8pt;>
-  점심시간은 12:30~14:00까지 입니다.<br>
-</div>
+  <div class="notice">
+    점심시간은 12:30~14:00까지 입니다.
+  </div>
+
   <div class="content">
     <h1>홈페이지 준비중입니다.</h1>
+
     <a href="map.html">
-      <button style="font-size:20px;">찾아오시는 길</button>
+      <button class="button">찾아오시는 길</button>
     </a>
-<!-- 네이버 버튼 추가 -->
-<a href="https://search.naver.com/search.naver?query=아이안소아청소년과" target="_blank">
-  <button style="font-size:22px; margin-top:20px; padding:12px 24px; background-color:#03C75A; color:white; border:none; border-radius:8px; cursor:pointer;">
-    네이버에서 아이안소아청소년과 보기
-  </button>
-</a>
+
+    <a href="https://search.naver.com/search.naver?query=아이안소아청소년과" target="_blank">
+      <button class="big-button naver-button">네이버로 아이안소아청소년과 보기</button>
+    </a>
+
+    <a href="https://ddocdoc.com/hospital/57171f12e207df2709f134e2" target="_blank">
+      <button class="big-button ddocdoc-button">똑딱으로 아이안소아청소년과 보기</button>
+    </a>
   </div>
 </body>
 </html>
