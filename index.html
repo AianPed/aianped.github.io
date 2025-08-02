@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>홈페이지</title>
   <style>
     html, body {
@@ -10,6 +10,11 @@
       padding: 0;
       overflow-x: hidden;
     }
+
+    a {
+      text-decoration: none;
+    }
+
     .logo-container {
       margin: 0 auto;
     }
@@ -26,10 +31,12 @@
         width: 100%;
       }
     }
+
     .content {
       padding: 50px;
       text-align: center;
     }
+
     .notice-box {
       border: 1px solid #ccc;
       background-color: #f9f9f9;
@@ -39,12 +46,14 @@
       border-radius: 6px;
       font-size: 16px;
     }
+
     .notice {
       font-size: 9pt;
       line-height: 1.5;
       text-align: center;
       margin: 20px 0;
     }
+
     .big-button {
       font-size: 22px;
       padding: 20px 24px;
@@ -61,34 +70,44 @@
       max-width: 320px;
       text-decoration: none;
     }
+
+    .big-button span {
+      text-decoration: none;
+    }
+
     .naver-button {
       background-color: #03C75A;
       font-size: 19px;
     }
+
     .ddocdoc-button {
       background-color: #FFD400;
       color: black;
       font-size: 19px;
     }
+
+    .icon {
+      width: 28px;
+      height: 28px;
+    }
   </style>
 </head>
 <body>
   <div class="logo-container">
-    <img src="image/logo.jpg" alt="로고">
+    <img src="image/logo.jpg" alt="로고" />
   </div>
 
   <div class="content">
+
+
     <div class="notice">
       <strong>점심시간은 12:30~14:00까지 입니다.</strong><br><br>
-
       나보미 원장님 진료시간<br>
       월, 수, 금: 09:00~18:00<br>
       화, 목: 09:00~12:00, 15:00~18:00<br><br>
-
       안병훈 원장님 진료시간<br>
       월, 화, 목: 08:30~19:00<br>
       수, 금: 08:30~12:00, 15:00~19:00<br><br>
-
       원장님 별 진료 일정은 변경 될 수 있습니다.<br>
       공휴일, 대체공휴일 진료는 대부분 휴진입니다. 미리 확인 부탁드립니다.
     </div>
@@ -105,18 +124,17 @@
 
     <a href="https://search.naver.com/search.naver?query=아이안소아청소년과" target="_blank">
       <button class="big-button naver-button">
-        <img src="image/naver-icon.jpg" alt="네이버 로고" width="24">
-        <strong>네이버</strong>로<br>아이안소아청소년과 보기
+        <img src="image/naver-icon.jpg" alt="네이버 로고" class="icon"/>
+        <span><strong>네이버</strong>로<br>아이안소아청소년과 보기</span>
       </button>
     </a>
 
     <a href="https://ddocdoc.com/hospital/57171f12e207df2709f134e2" target="_blank">
       <button class="big-button ddocdoc-button">
-        <img src="image/ddocdoc-icon.jpg" alt="똑딱 로고" width="24">
-        <strong>똑딱</strong>으로<br>아이안소아청소년과 보기
+        <img src="image/ddocdoc-icon.jpg" alt="똑딱 로고" class="icon"/>
+        <span><strong>똑딱</strong>으로<br>아이안소아청소년과 보기</span>
       </button>
     </a>
   </div>
 </body>
 </html>
-
