@@ -36,19 +36,6 @@
       padding: 50px;
       text-align: center;
     }
-
-    /* 가운데 배치되는 박스(휴진안내) */
-    .notice-box {
-      border: 1px solid #ccc;
-      background-color: #f9f9f9;
-      padding: 12px;
-      margin-bottom: 30px;
-      display: inline-block;
-      border-radius: 6px;
-      font-size: 18px;
-    }
-
-    /* 원장님 안내 박스 (가운데 정렬, 내부는 왼쪽 정렬) */
     .info-box {
       font-size: 14px;
       line-height: 1.8;
@@ -59,7 +46,17 @@
       border-radius: 8px;
       max-width: 500px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      display: block; /* 가운데 정렬용 */
+      display: block;
+    }
+
+    .notice-box {
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      padding: 12px;
+      margin-bottom: 30px;
+      display: inline-block;
+      border-radius: 6px;
+      font-size: 18px;
     }
 
     .big-button {
@@ -108,18 +105,23 @@
   <div class="content">
     <strong>점심시간은 12:30~14:00까지 입니다.</strong>
     <br><br>
-
-    <!-- 휴진 안내 (txt.txt에서 불러옴) -->
-    <div class="notice-box" id="holiday-box">
-      <strong id="holiday-text">휴진안내: 불러오는 중…</strong>
-    </div>
-    <br><br>
+    <!-- 휴진 안내 -->
+    <div class="notice-box">
+      <strong id="holiday-text">휴진안내: 8/4(월)-8/8(금), 8/15(금)</strong>
+    </div><br><br>
 
     <h1>홈페이지 준비중입니다.</h1>
 
     <a href="map.html">
       <button class="big-button" style="background-color:#4A90E2; height:72px;">
         <strong>찾아오시는 길</strong>
+      </button>
+    </a>
+
+    <!-- ✅ 추가: 비급여항목 안내 버튼 -->
+    <a href="nonpay.html">
+      <button class="big-button" style="background-color:#6C757D;">
+        <strong>비급여항목 안내</strong>
       </button>
     </a>
 
@@ -135,8 +137,7 @@
         <img src="image/ddocdoc-icon.jpg" alt="똑딱 로고" class="icon"/>
         <span><strong>똑딱</strong>으로<br>아이안소아청소년과 보기</span>
       </button>
-    </a>
-    <br>
+    </a><br>
 
     <!-- 박스 처리된 진료 안내 -->
     <div class="info-box">
@@ -161,25 +162,5 @@
     원장님 별 진료 일정은 사정상 변경 될 수 있습니다.<br>
     공휴일, 대체공휴일 진료는 대부분 휴진입니다. 미리 확인 부탁드립니다.<br>
   </div>
-
-  <!-- txt.txt 불러오는 스크립트 -->
-  <script>
-    // 같은 리포지토리의 /image/txt.txt를 불러와 notice-box에 넣습니다.
-    fetch('image/txt.txt', { cache: 'no-store' })
-      .then(res => {
-        if (!res.ok) throw new Error('txt.txt 로드 실패');
-        return res.text();
-      })
-      .then(text => {
-        // 줄바꿈(\n)도 보존하려면 <br>로 치환
-        const safe = text.replace(/\n/g, '<br>');
-        document.getElementById('holiday-text').innerHTML = safe.startsWith('<strong>')
-          ? safe
-          : `<strong>${safe}</strong>`;
-      })
-      .catch(() => {
-        document.getElementById('holiday-text').innerHTML = '<strong>휴진안내 정보를 불러오지 못했습니다.</strong>';
-      });
-  </script>
 </body>
 </html>
