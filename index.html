@@ -106,9 +106,39 @@
     <strong>점심시간은 12:30~14:00까지 입니다.</strong>
     <br><br>
     <!-- 휴진 안내 -->
-    <div class="notice-box">
-      <strong id="holiday-text">휴진안내: 8/4(월)-8/8(금), 8/15(금)</strong>
-    </div><br><br>
+<div class="notice-box">
+  <strong id="holiday-text">진료일정을 불러오는 중...</strong>
+</div>
+
+<script>
+  async function loadHolidayNotice() {
+    // 오늘 날짜 → YYMM (예: 2025년 9월 → "2509")
+    const today = new Date();
+    const year = String(today.getFullYear()).slice(-2); // "25"
+    const month = String(today.getMonth() + 1).padStart(2, "0"); // "09"
+    const fileName = year + month + ".txt"; // "2509.txt"
+
+    // GitHub Pages에 업로드된 txt 파일 경로
+    const fileUrl = "https://aianped.github.io/image/" + fileName;
+
+    try {
+      const response = await fetch(fileUrl);
+
+      if (!response.ok) {
+        throw new Error("파일 없음");
+      }
+
+      const text = await response.text();
+      document.getElementById("holiday-text").innerText = text.trim();
+    } catch (error) {
+      document.getElementById("holiday-text").innerText =
+        "진료일정이 등록되어 있지 않습니다";
+    }
+  }
+
+  loadHolidayNotice();
+</script>
+<br><br>
 
     <h1>홈페이지 준비중입니다.</h1>
 
@@ -165,6 +195,7 @@
   </div>
 </body>
 </html>
+
 
 
 
