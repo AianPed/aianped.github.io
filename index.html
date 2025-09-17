@@ -112,14 +112,8 @@
 
 <script>
   async function loadHolidayNotice() {
-    // 오늘 날짜 → YYMM (예: 2025년 9월 → "2509")
-    const today = new Date();
-    const year = String(today.getFullYear()).slice(-2); // "25"
-    const month = String(today.getMonth() + 1).padStart(2, "0"); // "09"
-    const fileName = year + month + ".txt"; // "2509.txt"
-
-    // GitHub Pages에 업로드된 txt 파일 경로
-    const fileUrl = "https://aianped.github.io/" + fileName;
+    // 항상 txt.txt 파일 고정
+    const fileUrl = "https://aianped.github.io/txt.txt";
 
     try {
       const response = await fetch(fileUrl);
@@ -195,6 +189,7 @@
   </div>
 </body>
 </html>
+
 
 
 
