@@ -49,16 +49,79 @@
       display: block;
     }
 
-    .notice-box {
-      border: 1px solid #ccc;
-      background-color: #f9f9f9;
-      padding: 12px;
-      margin-bottom: 30px;
-      display: inline-block;
-      border-radius: 6px;
-      font-size: 18px;
-      text-align: left;
-    }
+.schedule-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 30px auto;
+  box-sizing: border-box;
+}
+
+/* 위쪽 3열 */
+.schedule-header {
+  display: grid;
+  grid-template-columns: 60px 1fr 60px;
+
+  border: 1px solid #ccc;
+  border-bottom: none;
+
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+
+  background-color: #f2f2f2;
+}
+
+/* 가운데 연월 */
+.schedule-month {
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+/* 좌우 화살표 */
+.month-button {
+  height: 46px;
+
+  border: none;
+  background-color: transparent;
+
+  font-size: 24px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+/* 누를 때 */
+.month-button:active {
+  background-color: #e5e5e5;
+}
+
+/* 아래쪽 진료일정 */
+.notice-box {
+  border: 1px solid #ccc;
+
+  background-color: #f9f9f9;
+
+  padding: 14px;
+
+  margin: 0;
+
+  border-radius: 0 0 8px 8px;
+
+  font-size: 18px;
+  line-height: 1.7;
+  text-align: left;
+
+  box-sizing: border-box;
+  min-height: 60px;
+}
 
     .big-button {
       font-size: 17px;
@@ -106,37 +169,107 @@
   <div class="content">
     <strong>점심시간은 12:30~14:00까지 입니다.</strong>
     <br><br>
-    <!-- 휴진 안내 -->
-<div class="notice-box">
-  <strong id="holiday-text">진료일정을 불러오는 중...</strong>
+
+<!-- 진료일정 안내 -->
+<div class="schedule-container">
+
+  <!-- 이전달 / 현재 연월 / 다음달 -->
+  <div class="schedule-header">
+    <button class="month-button" onclick="changeMonth(-1)" aria-label="이전 달">
+      &#10094;
+    </button>
+
+    <div id="schedule-month" class="schedule-month"></div>
+
+    <button class="month-button" onclick="changeMonth(1)" aria-label="다음 달">
+      &#10095;
+    </button>
+  </div>
+
+  <!-- 해당 월 진료일정 -->
+  <div class="notice-box">
+    <strong id="holiday-text">진료일정을 불러오는 중...</strong>
+  </div>
+
 </div>
 
 <script>
-  async function loadHolidayNotice() {
-    // 오늘 날짜 → YYMM (예: 2025년 9월 → "2509")
-    const today = new Date();
-    const year = String(today.getFullYear()).slice(-2); // "25"
-    const month = String(today.getMonth() + 1).padStart(2, "0"); // "09"
-    const fileName = year + month + ".txt"; // "2509.txt"
+  // 처음 페이지를 열었을 때는 현재 연월
+  const today = new Date();
 
-    // GitHub Pages에 업로드된 txt 파일 경로
-    const fileUrl = "https://aianped.github.io/schedule/" + fileName;
+  let selectedYear = today.getFullYear();
+  let selectedMonth = today.getMonth() + 1;
+
+
+  async function loadHolidayNotice() {
+
+    // 상단에 표시할 연월
+    document.getElementById("schedule-month").innerText =
+      selectedYear + "년 " + selectedMonth + "월";
+
+    // YYMM.txt 형식으로 파일명 생성
+    const year = String(selectedYear).slice(-2);
+    const month = String(selectedMonth).padStart(2, "0");
+
+    const fileName = year + month + ".txt";
+
+    const fileUrl =
+      "https://aianped.github.io/schedule/" + fileName;
+
+    const holidayText =
+      document.getElementById("holiday-text");
+
+    // 파일 불러오는 동안 표시
+    holidayText.innerText = "진료일정을 불러오는 중...";
 
     try {
-      const response = await fetch(fileUrl);
+
+      const response = await fetch(fileUrl, {
+        cache: "no-store"
+      });
 
       if (!response.ok) {
         throw new Error("파일 없음");
       }
 
       const text = await response.text();
-      document.getElementById("holiday-text").innerText = text.trim();
+
+      if (text.trim() === "") {
+        throw new Error("내용 없음");
+      }
+
+      holidayText.innerText = text.trim();
+
     } catch (error) {
-      document.getElementById("holiday-text").innerText =
+
+      holidayText.innerText =
         "진료일정이 등록되어 있지 않습니다";
+
     }
   }
 
+
+  function changeMonth(amount) {
+
+    selectedMonth += amount;
+
+    // 12월 → 다음해 1월
+    if (selectedMonth > 12) {
+      selectedMonth = 1;
+      selectedYear++;
+    }
+
+    // 1월 → 이전해 12월
+    if (selectedMonth < 1) {
+      selectedMonth = 12;
+      selectedYear--;
+    }
+
+    loadHolidayNotice();
+  }
+
+
+  // 처음 페이지 로딩
   loadHolidayNotice();
 </script>
 <br><br>
